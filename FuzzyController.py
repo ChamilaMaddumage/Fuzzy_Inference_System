@@ -117,8 +117,6 @@ for x in range(0,len(lf_array)):
     c3array.append(experiencing.output['experience'])
     #print(experiencing.output['experience'])
 
-
-
 #############################################  Controler 04 (Controller 02 and Controller 03) #######################################################
 
 # New Antecedent/Consequent objects hold universe variables and membership functions
@@ -173,26 +171,79 @@ experiencing = ctrl.ControlSystemSimulation(experience_ctrl)
 # Pass inputs to the ControlSystem using Antecedent labels with Pythonic API
 # Note: if you like passing many inputs all at once, use .inputs(dict_of_data)
 
-c5array = []
-for x in range(0,len(c1array)):
-    experiencing.input['controller_one']=float(c1array[x])
-    experiencing.input['controller_four']=float(c4array[x])
-    experiencing.compute()#Crunch the numbers
-    c5array.append(experiencing.output['experience'])
-    #print(experiencing.output['experience'])
-
 name_array = []
+position_array = []
 with open('FIS_Data.csv') as csvDataFile:
     csvReader = csv.reader(csvDataFile)
     for row in csvReader:
+        position_array.append(row[8])
         name_array.append(row[0])
 
+
+
+se_final = []
+qa_final = []
+ba_final = []
+ne_final = []
+sye_final = []
+se_name = []
+qa_name = []
+ba_name = []
+ne_name = []
+sye_name = []
+
+
 for x in range(0,len(name_array)):
-    print(name_array[x], c5array[x])
+    experiencing.input['controller_one']=float(c1array[x])
+    experiencing.input['controller_four']=float(c4array[x])
+    experiencing.compute()#Crunch the numbers
+    if position_array[x] == "SE":
+        se_final.append(experiencing.output['experience'])
+        se_name.append(name_array[x])
+    elif position_array[x] == "QA":
+        qa_final.append(experiencing.output['experience'])
+        qa_name = name_array[x]
+    elif position_array[x] == "BA":
+        ba_final.append(experiencing.output['experience'])
+        ba_name = name_array[x]
+    elif position_array[x] == "NE":
+        ne_final.append(experiencing.output['experience'])
+        ne_name = name_array[x]
+    else:
+        sye_final.append(experiencing.output['experience'])
+        sye_name = name_array[x]
+
+for x in range(0,len(se_final)):
+    print(se_name[x], se_final[x])
+
+
+
+
+
+def bubbleSort(namelist,markslist):
+    for passnum in range(len(namelist)-1,0,-1):
+        for i in range(passnum):
+            if markslist[i]<markslist[i+1]:
+                temp1 = markslist[i]
+                markslist[i] = markslist[i+1]
+                markslist[i+1] = temp1
+                temp2 = namelist[i]
+                namelist[i] = namelist[i+1]
+                namelist[i+1] = temp2
+
+
+bubbleSort(se_name,se_final)
+
+print()
+
+
+for x in range(0,len(se_final)):
+    print(se_name[x], se_final[x])
+
+
 
 #csvfile = "Test.csv"
 #with open(csvfile, "w") as output:
  #   writer = csv.writer(output, lineterminator='\n')
   #  for val in final:
    #     writer.writerow([val])
-
