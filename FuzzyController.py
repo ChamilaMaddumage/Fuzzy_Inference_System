@@ -179,8 +179,6 @@ with open('FIS_Data.csv') as csvDataFile:
         position_array.append(row[8])
         name_array.append(row[0])
 
-
-
 se_final = []
 qa_final = []
 ba_final = []
@@ -192,7 +190,6 @@ ba_name = []
 ne_name = []
 sye_name = []
 
-
 for x in range(0,len(name_array)):
     experiencing.input['controller_one']=float(c1array[x])
     experiencing.input['controller_four']=float(c4array[x])
@@ -202,23 +199,16 @@ for x in range(0,len(name_array)):
         se_name.append(name_array[x])
     elif position_array[x] == "QA":
         qa_final.append(experiencing.output['experience'])
-        qa_name = name_array[x]
+        qa_name.append(name_array[x])
     elif position_array[x] == "BA":
         ba_final.append(experiencing.output['experience'])
-        ba_name = name_array[x]
+        ba_name.append(name_array[x])
     elif position_array[x] == "NE":
         ne_final.append(experiencing.output['experience'])
-        ne_name = name_array[x]
+        ne_name.append(name_array[x])
     else:
         sye_final.append(experiencing.output['experience'])
-        sye_name = name_array[x]
-
-for x in range(0,len(se_final)):
-    print(se_name[x], se_final[x])
-
-
-
-
+        sye_name.append(name_array[x])
 
 def bubbleSort(namelist,markslist):
     for passnum in range(len(namelist)-1,0,-1):
@@ -231,16 +221,32 @@ def bubbleSort(namelist,markslist):
                 namelist[i] = namelist[i+1]
                 namelist[i+1] = temp2
 
-
 bubbleSort(se_name,se_final)
+bubbleSort(qa_name,qa_final)
+bubbleSort(ba_name,ba_final)
+bubbleSort(ne_name,ne_final)
+bubbleSort(sye_name,sye_final)
 
 print()
-
-
+print("----------- Software Engineer Position ------------")
 for x in range(0,len(se_final)):
     print(se_name[x], se_final[x])
-
-
+print()
+print("----------- Quality Assurance Position ------------")
+for x in range(0,len(qa_final)):
+    print(qa_name[x], qa_final[x])
+print()
+print("------------ Business Analysis Position -----------")
+for x in range(0,len(ba_final)):
+    print(ba_name[x], ba_final[x])
+print()
+print("------------ Network Engineer Position ------------")
+for x in range(0,len(ne_final)):
+    print(ne_name[x], ne_final[x])
+print()
+print("------------ System Engineer Position -------------")
+for x in range(0,len(sye_final)):
+    print(sye_name[x], sye_final[x])
 
 #csvfile = "Test.csv"
 #with open(csvfile, "w") as output:
