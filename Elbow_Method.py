@@ -6,9 +6,20 @@ from sklearn import metrics
 from scipy.spatial.distance import cdist
 import numpy as np
 import matplotlib.pyplot as plt
+import csv
 
-x1 = np.array([3, 1, 1, 2, 1, 6, 6, 6, 5, 6, 7, 8, 9, 8, 9, 9, 8])
-x2 = np.array([5, 4, 5, 6, 5, 8, 6, 7, 6, 7, 1, 2, 1, 2, 3, 2, 3])
+x1 = []
+x2 = []
+
+with open('FIS_Data.csv') as csvDataFile:
+    csvReader = csv.reader(csvDataFile)
+    for row in csvReader:
+        x1.append(row[2])
+        x2.append(row[3])
+
+
+#x1 = np.array([3, 1, 1, 2, 1, 6, 6, 6, 5, 6, 7, 8, 9, 8, 9, 9, 8, 5, 6, 2, 7, 9, 2, 5, 8, 4, 2])
+#x2 = np.array([5, 4, 5, 6, 5, 8, 6, 7, 6, 7, 1, 2, 1, 2, 3, 2, 3, 6, 0, 2, 4, 1, 7, 3, 9, 5, 2])
 
 plt.plot()
 plt.xlim([0, 10])
@@ -39,3 +50,5 @@ plt.xlabel('k')
 plt.ylabel('Distortion')#the values calculated with the cost function
 plt.title('The Elbow Method showing the optimal k')
 plt.show()
+
+print(K)
